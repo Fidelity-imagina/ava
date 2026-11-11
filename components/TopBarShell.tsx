@@ -14,7 +14,7 @@ export function TopBarShell({ viewer, signOutUrl }: { viewer: TopBarViewer | nul
   const router = useRouter();
   const path = usePathname();
   return (
-    <AppHeader
+    <AppHeader theme
       name="AVA"
       lockup={false}
       profile={

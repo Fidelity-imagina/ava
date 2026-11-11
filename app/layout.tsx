@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@fidelity-imagina/ui/styles.css";
 import "./globals.css";
-import { ToastProvider } from "@fidelity-imagina/ui";
+import { ToastProvider, THEME_INIT_SCRIPT } from "@fidelity-imagina/ui";
 
 export const metadata: Metadata = {
   title: { default: "AVA", template: "%s · AVA" },
@@ -14,7 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>
         <ToastProvider>{children}</ToastProvider>
       </body>
