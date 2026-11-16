@@ -1,10 +1,11 @@
 import { neon } from "@neondatabase/serverless";
 import { DEV_BYPASS, DEV_VIEWER_EMAIL } from "@/lib/devBypass";
 
-// Mirrors ROLES in portal-imagina/lib/roleDefs.ts; the four roles are set on the portal's Users tab.
+// The names people see, as the portal shows them (roleLabel in portal-imagina/lib/roleDefs.ts).
+// culture_contributor is only a stored key now: it marks Enterprise Map's App lead, and shows as Contributor.
 export const ROLE_LABELS: Record<string, string> = {
   super_admin: "Super Admin",
-  culture_contributor: "Culture Contributor",
+  culture_contributor: "Contributor",
   contributor: "Contributor",
   user: "User",
 };
