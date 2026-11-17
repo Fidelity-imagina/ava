@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, useToast } from "@fidelity-imagina/ui";
 import { AvaMark } from "@/components/AvaMark";
 import { ItemDetail } from "@/components/ItemDetail";
-import { ITEMS, cat, find, fmt, overdue, type Item } from "@/lib/knowledge";
+import { ITEMS, find, fmt, overdue, type Item } from "@/lib/knowledge";
 import { introSeen } from "@/lib/introSeen";
 
 type Msg = { role: "user"; text: string } | { role: "ai"; hits: string[] };
@@ -256,7 +256,6 @@ function AiMessage({ hits, base, mode, activeSource, onCite, onTick, onDone }: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
-  const owners = [...new Set(hits.map((h) => cat(h.cat).owner))].join(" and ");
   const sam = hits.some((h) => h.sam);
 
   return (
@@ -284,11 +283,11 @@ function AiMessage({ hits, base, mode, activeSource, onCite, onTick, onDone }: {
               <button
                 className="link"
                 disabled={logged}
-                onClick={() => { setLogged(true); toast({ kind: "success", label: "Gap logged", message: "The owners can see what I was missing.", meta: "It joins their review queue." }); }}
+                onClick={() => { setLogged(true); toast({ kind: "success", label: "Gap logged", message: "The team can see what I was missing.", meta: "It joins their review queue." }); }}
               >
                 {logged ? "Logged" : "Log this as a gap"}
               </button>
-              <span className="meta">My owners will see it.</span>
+              <span className="meta">The team will see it.</span>
             </div>
           ) : (
             <>
@@ -300,7 +299,7 @@ function AiMessage({ hits, base, mode, activeSource, onCite, onTick, onDone }: {
                     <span>
                       <span className="src__t">{h.title}</span>
                       <span className="meta src__m">
-                        {cat(h.cat).name} &middot; Owner {cat(h.cat).owner} &middot; Review by {fmt(h.review)}
+                        {h.cat} &middot; Review by {fmt(h.review)}
                         {overdue(h) && <> <span className="flag">(overdue)</span></>}
                       </span>
                     </span>
@@ -309,7 +308,7 @@ function AiMessage({ hits, base, mode, activeSource, onCite, onTick, onDone }: {
                 ))}
               </div>
               <div className="notes">
-                <button className="link" onClick={() => toast({ kind: "success", label: "Flagged", message: `Sent to ${owners}.`, meta: "It's in their queue." })}>Flag a gap or inaccuracy</button>
+                <button className="link" onClick={() => toast({ kind: "success", label: "Flagged", message: "Sent to the people who look after what I know.", meta: "It's in their queue." })}>Flag a gap or inaccuracy</button>
                 {sam && <span className="meta">Draws on Sam&apos;s thinking. Voice or attribution use needs his approval.</span>}
               </div>
             </>

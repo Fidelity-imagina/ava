@@ -45,7 +45,7 @@ export function IntroView() {
       <section className="isec">
         <span className="label reveal">Her brain</span>
         <h2 className="reveal" style={i(1)}>She knows what we know.</h2>
-        <p className="reveal" style={i(2)}>Everything in her brain has been approved by the people who own it. Nothing gets in by accident, and nothing stays in without a reason.</p>
+        <p className="reveal" style={i(2)}>Everything in her brain has been approved by people. Nothing gets in by accident, and nothing stays in without a reason.</p>
         <div className="ifacts reveal" style={i(3)}>
           <div><b>{CATS.length}</b><span>categories</span></div>
           <div><b>{ITEMS.length}</b><span>things she knows</span></div>
@@ -68,13 +68,13 @@ export function IntroView() {
       <section className="isec">
         <span className="label reveal">Her honesty</span>
         <h2 className="reveal" style={i(1)}>She says when she doesn&apos;t know.</h2>
-        <p className="reveal" style={i(2)}>No guessing, no padding. If it isn&apos;t in her brain, she&apos;ll say so, and you can tell the owners what&apos;s missing so she can learn it.</p>
+        <p className="reveal" style={i(2)}>No guessing, no padding. If it isn&apos;t in her brain, she&apos;ll say so, and you can tell the team what&apos;s missing so she can learn it.</p>
       </section>
       <div className="iline reveal" />
       <section className="isec">
         <span className="label reveal">Her teachers</span>
         <h2 className="reveal" style={i(1)}>People teach her. Tests keep her honest.</h2>
-        <p className="reveal" style={i(2)}>Each category has an owner. They write her brief, she&apos;s tested on sample questions, and a council approves it before she uses any of it. If something&apos;s withdrawn, she stops using it straight away.</p>
+        <p className="reveal" style={i(2)}>Anyone can add what they know and say which category they think it belongs in. It gets sorted, she&apos;s tested on sample questions, and a council approves it before she uses any of it. If something&apos;s withdrawn, she stops using it straight away.</p>
       </section>
       <div className="iline reveal" />
       <section className="isec">

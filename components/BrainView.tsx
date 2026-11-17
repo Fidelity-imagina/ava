@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@fidelity-imagina/ui";
-import { CATS, ITEMS, STREAMS, cat, fmt, overdue, type Item } from "@/lib/knowledge";
+import { CATS, ITEMS, STREAMS, fmt, overdue, type Item } from "@/lib/knowledge";
 import { ItemDetail } from "@/components/ItemDetail";
 
 const i = (n: number) => ({ "--i": n }) as React.CSSProperties;
@@ -37,15 +37,15 @@ export function BrainView() {
   const filtering = !!q.trim() || stream !== "All";
   const match = (x: Item) => {
     const s = q.trim().toLowerCase();
-    return (stream === "All" || x.stream === stream) && (!s || `${x.title} ${x.summary} ${x.type} ${x.stream} ${cat(x.cat).name}`.toLowerCase().includes(s));
+    return (stream === "All" || x.stream === stream) && (!s || `${x.title} ${x.summary} ${x.type} ${x.stream} ${x.cat}`.toLowerCase().includes(s));
   };
-  const cats = CATS.map((c, ci) => ({ c, ci, its: ITEMS.filter((x) => x.cat === c.id && match(x)) })).filter((r) => !filtering || r.its.length);
+  const cats = CATS.map((c, ci) => ({ c, ci, its: ITEMS.filter((x) => x.cat === c.name && match(x)) })).filter((r) => !filtering || r.its.length);
   const isOpen = (id: string) => filtering || open.has(id);
   const allOpen = cats.length > 0 && cats.every((r) => isOpen(r.c.id));
 
   const toggle = (id: string) => setOpen((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n; });
-  const toggleAll = () => setOpen(allOpen ? new Set() : new Set(CATS.map((c) => c.id)));
   const ask = (text: string) => router.push(`/?ask=${encodeURIComponent(text)}`);
+  const toggleAll = () => setOpen(allOpen ? new Set() : new Set(CATS.map((c) => c.id)));
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setItem(null); };
@@ -60,7 +60,7 @@ export function BrainView() {
           <button className="link rise" style={i(0)} onClick={() => router.push("/")}>&larr; Back to AVA</button>
           <div style={{ marginTop: 32 }}><span className="label rise" style={{ ...i(1), display: "block" }}>AVA&apos;s brain</span></div>
           <h1 className="hero-title rise" style={{ ...i(2), maxWidth: "14ch", marginTop: 16 }}>What I know.</h1>
-          <p className="lede rise" style={i(3)}>Everything here is approved, owned and traced to its source. Each category has an owner who teaches me, and I passed a test on it before I used a word of it. Open anything to see more.</p>
+          <p className="lede rise" style={i(3)}>Everything here is approved and traced to its source. People add what they know, it gets sorted into categories, and I passed a test on it before I used a word of it. Open anything to see more.</p>
           <div className="kstats rise" style={i(4)}>
             <div className="kstat"><b><CountUp to={ITEMS.length} /></b><span>things I know</span></div>
             <div className="kstat"><b><CountUp to={CATS.length} /></b><span>categories</span></div>
@@ -86,10 +86,10 @@ export function BrainView() {
 
           <div className="klist">
             {cats.length === 0 && (
-              <div className="kempty"><h2>Nothing matches that.</h2><p>If it should be here, ask me. I&apos;ll offer to log the gap for the owners.</p></div>
+              <div className="kempty"><h2>Nothing matches that.</h2><p>If it should be here, ask me. I&apos;ll offer to log the gap for the team.</p></div>
             )}
             {cats.map(({ c, ci, its }, n) => {
-              const total = ITEMS.filter((x) => x.cat === c.id).length;
+              const total = ITEMS.filter((x) => x.cat === c.name).length;
               const o = isOpen(c.id);
               return (
                 <section key={c.id} className={`kcat rise${o ? " open" : ""}`} style={i(6 + n)}>
@@ -98,10 +98,8 @@ export function BrainView() {
                     <span className="kcat__name">{c.name}</span>
                     <span className="kcat__count">{its.length}{filtering && <i>of {total}</i>}</span>
                     <span className="kcat__sign" aria-hidden="true">+</span>
-                    <span className="meta kcat__sub">{c.desc} &middot; Teacher: {c.owner}</span>
                   </button>
                   <div className="kcat__body"><div>
-                    <div className="xp"><span className="label">Explores</span>{c.explores.map((e) => <span key={e} className="xp__c">{e}</span>)}</div>
                     <div className="krows">
                       {its.map((x, k) => (
                         <button key={x.title} className={`krow${item === x ? " on" : ""}`} style={i(k)} onClick={() => setItem(item === x ? null : x)} tabIndex={o ? 0 : -1}>
@@ -112,10 +110,6 @@ export function BrainView() {
                           <span className="krow__a" aria-hidden="true">&rarr;</span>
                         </button>
                       ))}
-                    </div>
-                    <div className="ktry">
-                      <span className="label">Try asking me</span>
-                      {c.ask.map((a) => <button key={a} className="try" onClick={() => ask(a)} tabIndex={o ? 0 : -1}>{a}</button>)}
                     </div>
                   </div></div>
                 </section>
