@@ -247,8 +247,8 @@ export const ITEMS: Item[] = [
     "Staff sign in once at the ATLAS portal with Microsoft Entra, and every app recognises them through a shared sign-in that lasts eight hours. Apps keep no staff session of their own. Signed-out visitors are sent to the portal and back, and signing out ends the session everywhere.",
     ["Atlas 1.0 was named on 21 October 2026, when every app moved to portal sign-in.", "A small number of apps keep a separate login for non-staff, such as partners and external guests."]),
   N("ATLAS Platform & Delivery", "Roles and app access", "Reference", "2027-01-25", "Portal documentation",
-    "There are four roles. Super Admin gets every app plus the portal console, excluding People & Culture. Culture Contributor is Contributor plus People & Culture in Enterprise Map. Contributor can edit within permitted apps. User is read-only where an app supports it. Each person also has a list of permitted apps, and unticked means no access.",
-    ["Apps read each person's access live, so a change on the Users tab applies straight away.", "Some apps limit which roles can use them."]),
+    "Access is set per person, per app, on the portal's Users tab. On each app a person is a User (read-only), a Contributor (can add, change and delete) or an App lead (that app's top tier, on apps that have one). Someone can be App lead of one app and User of another. Super Admin is the one global switch: the Atlas Console plus every app at its top level, except Enterprise Map, where Super Admins stay at Contributor so they do not see People & Culture.",
+    ["Everyone is at least a User on every app. The exception is a restricted app such as Tests, which stays off until granted.", "Confidential HR access follows being App lead on the app that holds it: Enterprise Map (People & Culture, offboarding) and Onboarding (HR details).", "Apps read each person's access live, so a change on the Users tab applies straight away."]),
   N("ATLAS Platform & Delivery", "The apps in ATLAS", "Reference", "2027-01-25", "Portal app catalogue",
     "ATLAS carries the Enterprise Map, Meridian, Vision Day, Tasks, Exchange Spreadsheet, Lead Allocation, Depreciation Requests, EBM Form, Fact Find, Property Valet Portal, Surveys, Tests, Systems Map, Onboarding and PIP. Each opens in its own tab from the portal grid.",
     ["Enterprise Map: organisational structure as an interactive solar system.", "Meridian: the stocklist and partner portal.", "Systems Map: read-only documentation of the systems landscape.", "Lead Allocation is under construction."]),
@@ -262,8 +262,8 @@ export const ITEMS: Item[] = [
     "Marketing and content sites, such as the landing page, infina-landing and the Obsidion page, are fully editable through Builder.io. The portal has some editable sections. Data-driven apps behind sign-in, such as Tasks, StockList, Enterprise Map, Meridian and Vision Day, are dev-only.",
     ["Editable content is written as a prop from the start, so connecting it later is a registration step, not a rebuild."]),
   N("ATLAS Platform & Delivery", "Adding a new app to ATLAS", "Process", "2027-02-20", "Portal documentation",
-    "A new app is scaffolded in the current pattern, with portal sign-in and the shared design tokens. It is then registered in the portal's app catalogue and switched to active. Finally, people are given the app on the Users tab. Super Admins get every catalogue app automatically, and everyone else needs it ticked.",
-    ["Manual steps outside the code: Entra registration, package token, DNS and Vercel.", "An app can limit which roles may have it."])
+    "A new app is scaffolded in the current pattern, with portal sign-in and the shared design tokens. It is then registered in the portal's app catalogue and switched to active. Finally, people are given the app on the Users tab. Super Admins get every catalogue app automatically, and everyone else starts as a User and is raised to Contributor or App lead on the Users tab.",
+    ["Manual steps outside the code: Entra registration, package token, DNS and Vercel.", "An app can limit which levels people can hold on it."])
 ];
 
 /** Categories are whatever the items say they are. Nothing here pre-defines them. */
